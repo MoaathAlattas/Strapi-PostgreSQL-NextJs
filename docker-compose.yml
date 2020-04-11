@@ -1,0 +1,33 @@
+version: '3'
+
+services:
+  serverApp:
+    container_name: strapi
+    image: strapi/strapi:3.0.0-beta.19.5-alpine
+    environment:
+      - DATABASE_CLIENT=${DATABASE_CLIENT}
+      - DATABASE_HOST=${DATABASE_HOST}
+      - DATABASE_PORT=${DATABASE_PORT}
+      - DATABASE_NAME=${DATABASE_NAME}
+      - DATABASE_USERNAME=${DATABASE_USERNAME}
+      - DATABASE_PASSWORD=${DATABASE_PASSWORD}
+    ports:
+      - ${SERVER_APP_PORT}:1337
+    volumes:
+      - ${SERVER_APP_PATH}:/srv/app
+    depends_on:
+      - db
+
+  db:
+    container_name: postgres
+    image: postgres:12.2-alpine
+    restart: always
+    volumes:
+      - hhar_server_app_db:/var/lib/postgresql/data
+    environment:
+      POSTGRES_USER: ${DATABASE_USERNAME}
+      POSTGRES_PASSWORD: ${DATABASE_PASSWORD}
+      POSTGRES_DB: ${DATABASE_NAME}
+
+volumes:
+  hhar_server_app_db: {}
