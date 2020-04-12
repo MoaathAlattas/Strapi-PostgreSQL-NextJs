@@ -29,14 +29,18 @@ services:
     depends_on:
       - db
 
-  # web:
-  #   container_name: nextjs
-  #   image: 
-  #   environment:
-  #     - VIRTUAL_HOST=api.${HOST}
-  #     - NODE_ENV=${ENV}
-  #   volumes:
-  #     - ${CLIENT_WEB_APP_PATH}:/client/app
+  web:
+    build:
+      context: ${CLIENT_WEB_APP_PATH}
+      dockerfile: Dockerfile
+    volumes:
+      - ${CLIENT_WEB_APP_PATH}:/web/app
+    expose:
+      - 3000
+    environment:
+      - VIRTUAL_HOST=${HOST}
+      - NODE_ENV=${ENV}
+    # command: npm i && npm run dev
 
   nginx:
     image: jwilder/nginx-proxy:alpine
@@ -44,6 +48,9 @@ services:
       - ${PORT}:80
     volumes:
       - /var/run/docker.sock:/tmp/docker.sock:ro
+    depends_on:
+      - api
+      - web
 
 volumes:
   hhar_server_app_db: {}
