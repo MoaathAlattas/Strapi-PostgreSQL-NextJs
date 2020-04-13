@@ -27,6 +27,8 @@ services:
       - DATABASE_PASSWORD=${DATABASE_PASSWORD}
     volumes:
       - shared_volume:/app
+    expose:
+      - 1337
     depends_on:
       - db
     command: npm run develop
