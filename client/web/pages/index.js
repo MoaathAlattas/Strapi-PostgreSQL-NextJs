@@ -3,7 +3,7 @@
 const Home = () => {
   return (
     <>
-      <h1>posts</h1>
+      <h1>Next.js App!</h1>
     </>
   )
 }
@@ -13,7 +13,7 @@ const Home = () => {
 //   return { data: await res.json() }
 // }
 
-console.log(process.env.HOST)
+console.log(process.env.APP_PATH)
 
 
 export default Home

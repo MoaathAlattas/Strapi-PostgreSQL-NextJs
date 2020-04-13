@@ -15,6 +15,6 @@
     "react-dom": "16.13.1"
   },
   "scripts": {
-    "dev": "dotenv concurrently --kill-others-on-fail \"yarn workspace client-web dev\" \"yarn workspace server-api develop\"  "
+    "dev": "dotenv concurrently  \"yarn workspace client-web dev\" \"yarn workspace server-api develop\"  "
   }
 }
