@@ -11,3 +11,6 @@ $ ip route | grep default | awk '{print $3}'
 
 - to start docker run:
 sudo service docker start
+
+- yarn access problem 
+sudo chmod -R 777 path/to/project

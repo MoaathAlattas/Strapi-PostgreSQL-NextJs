@@ -1,5 +1,5 @@
 {
-  "name": "api",
+  "name": "server-api",
   "private": true,
   "version": "0.1.0",
   "description": "A Strapi application",
@@ -19,15 +19,10 @@
     "strapi-plugin-users-permissions": "3.0.0-beta.19.5",
     "strapi-plugin-email": "3.0.0-beta.19.5",
     "strapi-plugin-upload": "3.0.0-beta.19.5",
-    "strapi-connector-bookshelf": "3.0.0-beta.19.5",
-    "knex": "<0.20.0",
-    "pg": "latest"
+    "strapi-connector-bookshelf": "3.0.0-beta.19.5"
   },
   "author": {
     "name": "A Strapi developer"
-  },
-  "strapi": {
-    "uuid": "f67b8f68-4261-43c4-a3f6-461aeed352ec"
   },
   "engines": {
     "node": ">=10.0.0",

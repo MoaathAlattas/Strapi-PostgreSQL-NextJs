@@ -1,25 +1,19 @@
-import fetch from 'node-fetch'
 
-const Home = ({ data }) => {
+
+const Home = () => {
   return (
     <>
       <h1>posts</h1>
-      <br />
-      {data.map((post) => (
-        <div key={post.id}>
-          <h2>{post.title}</h2>
-          <small>{post.created_at}</small>
-          <h2>{post.content}</h2>
-          <hr />
-        </div>
-      ))}
     </>
   )
 }
 
-Home.getInitialProps = async () => {
-  const res = await fetch('http://api.hhar.com/posts')
-  return { data: await res.json() }
-}
+// Home.getInitialProps = async () => {
+//   const res = await fetch('http://api.hhar.com/posts')
+//   return { data: await res.json() }
+// }
+
+console.log(process.env.HOST)
+
 
 export default Home
