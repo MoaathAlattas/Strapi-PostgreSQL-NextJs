@@ -6,7 +6,7 @@ services:
     image: postgres:12.2-alpine
     restart: always
     volumes:
-      - shared_volume:/var/lib/postgresql/data
+      - db_volume:/var/lib/postgresql/data
     environment:
       POSTGRES_USER: ${DATABASE_USERNAME}
       POSTGRES_PASSWORD: ${DATABASE_PASSWORD}
@@ -14,7 +14,8 @@ services:
 
   api:
     container_name: strapi
-    image: strapi/strapi:3.0.0-beta.19.5-alpine
+    image: node:12-alpine
+    working_dir: /app/${API_APP_PATH}
     environment:
       - VIRTUAL_HOST=api.${HOST}
       - NODE_ENV=${ENV}
@@ -25,14 +26,15 @@ services:
       - DATABASE_USERNAME=${DATABASE_USERNAME}
       - DATABASE_PASSWORD=${DATABASE_PASSWORD}
     volumes:
-      - ${SERVER_APP_PATH}:/srv/app
+      - shared_volume:/app
     depends_on:
       - db
+    command: npm run develop
 
   web:
     container_name: nextjs
     image: node:12-alpine
-    working_dir: /app/client/web
+    working_dir: /app/${WEB_APP_PATH}
     volumes:
       - shared_volume:/app
     expose:
@@ -54,6 +56,7 @@ services:
       - web
 
 volumes:
+  db_volume: {}
   shared_volume:
     driver: local
     driver_opts:
