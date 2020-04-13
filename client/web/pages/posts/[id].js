@@ -16,8 +16,11 @@ const Home = ({ data }) => {
 
 Home.getInitialProps = async (ctx) => {
     const { id } = ctx.query
-    const res = await fetch(`http://${process.env.API_URL}/posts/${id}`)
-    return { data: await res.json() }
+    const res = await fetch(`${process.env.API_URL}/posts/${id}`)
+
+    return {
+        data: await res.json()
+    }
 }
 
 

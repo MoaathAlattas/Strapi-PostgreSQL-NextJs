@@ -16,6 +16,9 @@ services:
     container_name: webserver
     image: node:12-alpine
     working_dir: /app
+    ports: 
+      - 9000:9000
+      - 9100:9100
     volumes:
       - shared_volume:/app
     depends_on:

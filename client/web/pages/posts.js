@@ -4,8 +4,8 @@ const Home = ({ data }) => {
   return (
     <>
       <h1>Next.js App!</h1><br />
-      {data && data.map((post) => (
-        <div>
+      {data.map((post) => (
+        <div key={post.id}>
           <h2>{post.title}</h2>
           <p>{post.content}</p>
           <hr />
@@ -16,7 +16,7 @@ const Home = ({ data }) => {
 }
 
 Home.getInitialProps = async () => {
-  const res = await fetch(`http://${process.env.API_URL}/posts`)
+  const res = await fetch(`${process.env.API_URL}/posts`)
   return { data: await res.json() }
 }
 
