@@ -13,7 +13,7 @@
             "address": "localhost",
             "protocol": "auto",
             "localRoot": "${workspaceFolder}/server/api",
-            "remoteRoot": "/app/server/api"
+            "remoteRoot": "/server/api"
         },
         {
             "name": "client-app",
