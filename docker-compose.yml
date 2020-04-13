@@ -6,7 +6,7 @@ services:
     image: postgres:12.2-alpine
     restart: always
     volumes:
-      - hhar_server_app_db:/var/lib/postgresql/data
+      - shared_volume:/var/lib/postgresql/data
     environment:
       POSTGRES_USER: ${DATABASE_USERNAME}
       POSTGRES_PASSWORD: ${DATABASE_PASSWORD}
@@ -30,10 +30,11 @@ services:
       - db
 
   web:
+    container_name: nextjs
     image: node:12-alpine
     working_dir: /app/client/web
     volumes:
-      - hhar_server_data:/app
+      - shared_volume:/app
     expose:
       - 3000
     environment:
@@ -42,6 +43,7 @@ services:
     command: npm run dev
 
   nginx:
+    container_name: nginx_proxy
     image: jwilder/nginx-proxy:alpine
     ports:
       - ${PORT}:80
@@ -52,8 +54,7 @@ services:
       - web
 
 volumes:
-  hhar_server_app_db: {}
-  hhar_server_data:
+  shared_volume:
     driver: local
     driver_opts:
       type: none
