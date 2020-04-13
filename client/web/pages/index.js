@@ -1,6 +1,4 @@
-import Head from 'next/head'
 import fetch from 'node-fetch'
-import { useState, useEffect } from 'react'
 
 const Home = ({ data }) => {
   return (
@@ -19,10 +17,9 @@ const Home = ({ data }) => {
   )
 }
 
-Home.getInitialProps = async ctx => {
+Home.getInitialProps = async () => {
   const res = await fetch('http://api.hhar.com/posts')
-  const json = await res.json()
-  return { data: json }
+  return { data: await res.json() }
 }
 
 export default Home

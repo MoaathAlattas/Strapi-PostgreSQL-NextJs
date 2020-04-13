@@ -30,17 +30,16 @@ services:
       - db
 
   web:
-    build:
-      context: ${CLIENT_WEB_APP_PATH}
-      dockerfile: Dockerfile
+    image: node:12-alpine
+    working_dir: /app/client/web
     volumes:
-      - ${CLIENT_WEB_APP_PATH}:/web/app
+      - hhar_server_data:/app
     expose:
       - 3000
     environment:
       - VIRTUAL_HOST=${HOST}
       - NODE_ENV=${ENV}
-    # command: npm i && npm run dev
+    command: npm run dev
 
   nginx:
     image: jwilder/nginx-proxy:alpine
@@ -54,3 +53,9 @@ services:
 
 volumes:
   hhar_server_app_db: {}
+  hhar_server_data:
+    driver: local
+    driver_opts:
+      type: none
+      device: ${APP_PATH}
+      o: bind

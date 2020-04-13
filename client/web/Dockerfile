@@ -1,9 +1,9 @@
 FROM node:12-alpine
 
-RUN mkdir -p /web/app
-WORKDIR /web/app
+RUN mkdir -p /client/web
+WORKDIR /client/web
 
-COPY package.json /web/app/
+COPY package.json /client/web/
 
 RUN npm install
 
