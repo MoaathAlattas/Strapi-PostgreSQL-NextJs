@@ -1,12 +1,13 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import fetch from 'node-fetch'
 import Cookies from 'js-cookie'
-const Home = ({ data }) => {
+import cookies from 'cookie'
+const Home = ({ jwt }) => {
 
   const [auth, setAuth] = useState({
     username: '',
     password: '',
-    jwt: '',
+    jwt,
     user: {},
     error: null
   })
@@ -50,10 +51,11 @@ const Home = ({ data }) => {
 
 
   const fetchData = async () => {
+
     const req = await fetch("//api.hhar.com/posts",
       {
         headers: {
-          Authorization: `Bearer ${Cookies.get('Authorization')}`,
+          Authorization: `Bearer ${auth.jwt}`,
         },
       }
     )
@@ -63,6 +65,7 @@ const Home = ({ data }) => {
 
   const logout = () => {
     Cookies.remove('Authorization')
+    // remove token from state
   }
 
   const cok = () => {
@@ -88,14 +91,18 @@ const Home = ({ data }) => {
   )
 }
 
-Home.getInitialProps = (ctx) => {
-  if (typeof window === 'undefined') { }
+Home.getInitialProps = ({ req }) => {
+  // server
+  if (typeof window === 'undefined' && req.headers.cookie) {
+    const { Authorization } = cookies.parse(req.headers.cookie)
 
-  return {
-    "data": {
-      token: "x"
+    return {
+      jwt: Authorization
     }
   }
+
+  return {}
+
 }
 
 export default Home
