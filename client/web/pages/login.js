@@ -1,12 +1,13 @@
 import { useState } from 'react'
 import fetch from 'node-fetch'
-
+import Cookies from 'js-cookie'
 const Home = ({ data }) => {
 
   const [auth, setAuth] = useState({
     username: '',
     password: '',
     jwt: '',
+    user: {},
     error: null
   })
 
@@ -21,7 +22,7 @@ const Home = ({ data }) => {
     e.preventDefault()
     const url = 'http://api.hhar.com/auth/local'
 
-    const res = await fetch(url, {
+    const req = await fetch(url, {
       method: 'POST',
       headers: {
         'Content-type': 'application/json'
@@ -33,12 +34,14 @@ const Home = ({ data }) => {
     })
 
 
-    if (res.ok) {
-      const json = await res.json()
+    if (req.ok) {
+      const res = await req.json()
       setAuth({
         ...auth,
-        jwt: json.jwt,
+        ...res,
       })
+      console.log(res)
+      Cookies.set('Authorization', res.jwt)
     } else {
       console.log("you Suck!")
     }
@@ -47,12 +50,24 @@ const Home = ({ data }) => {
 
 
   const fetchData = async () => {
-    const req = await fetch("//api.hhar.com/posts", {
-      headers: {
-        Authorization: `Bearer ${auth.jwt}`,
-      },
-    })
+    const req = await fetch("//api.hhar.com/posts",
+      {
+        headers: {
+          Authorization: `Bearer ${Cookies.get('Authorization')}`,
+        },
+      }
+    )
     const json = await req.json()
+    console.log(json)
+  }
+
+  const logout = () => {
+    Cookies.remove('Authorization')
+  }
+
+  const cok = () => {
+    console.log(Cookies.get())
+    console.log(Cookies.get('Authorization'))
   }
 
   return (
@@ -65,15 +80,16 @@ const Home = ({ data }) => {
           <input type="password" name="password" id="password" value={auth.password} onChange={handleChange} />
           <button type="submit">Login</button>
         </form>
+        <button onClick={logout}>Logout</button>
       </div>
-
       <button onClick={fetchData}>Fetch Now</button>
-
+      <button onClick={cok}>Get Cookies</button>
     </>
   )
 }
 
 Home.getInitialProps = (ctx) => {
+  if (typeof window === 'undefined') { }
 
   return {
     "data": {
@@ -81,6 +97,5 @@ Home.getInitialProps = (ctx) => {
     }
   }
 }
-
 
 export default Home
