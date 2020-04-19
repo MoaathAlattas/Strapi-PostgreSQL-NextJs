@@ -19,12 +19,19 @@ const Home = ({ data }) => {
   )
 }
 
-Home.getInitialProps = async (ctx) => {
+Home.getInitialProps = async ({req, res}) => {
 
-  const res = await fetch(`http://api.hhar.com/posts`, {
-    credentials: "include",
-  })
-  const js = await res.json()
+  const options = {
+    method: 'GET',
+    credentials: 'include', // for client side requests
+  }
+
+  if (req) {
+    options.headers = { cookie: req.headers.cookie }; // for server side request
+  }
+
+  const data = await fetch(`http://api.hhar.com/posts`, options)
+  const js = await data.json()
   return { data: js  }
 }
 
