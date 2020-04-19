@@ -19,6 +19,8 @@ services:
     ports: 
       - 9000:9000
       - 9100:9100
+      - 1337:1337
+      - 3000:3000
     volumes:
       - shared_volume:/app
     depends_on:

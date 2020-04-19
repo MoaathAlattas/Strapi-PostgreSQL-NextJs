@@ -25,6 +25,7 @@ const Home = ({ jwt }) => {
 
     const req = await fetch(url, {
       method: 'POST',
+      credentials: "include",
       headers: {
         'Content-type': 'application/json'
       },
@@ -42,7 +43,7 @@ const Home = ({ jwt }) => {
         ...res,
       })
       console.log(res)
-      Cookies.set('Authorization', res.jwt)
+      Cookies.set('Authorization', res.jwt, { domain: 'hhar.com' })
     } else {
       console.log("you Suck!")
     }
@@ -52,8 +53,9 @@ const Home = ({ jwt }) => {
 
   const fetchData = async () => {
 
-    const req = await fetch("//api.hhar.com/posts",
+    const req = await fetch("http://api.hhar.com/posts",
       {
+        credentials: "include",
         headers: {
           Authorization: `Bearer ${auth.jwt}`,
         },
@@ -91,7 +93,7 @@ const Home = ({ jwt }) => {
   )
 }
 
-Home.getInitialProps = ({ req }) => {
+Home.getInitialProps = ({ req, res }) => {
   // server
   if (typeof window === 'undefined' && req.headers.cookie) {
     const { Authorization } = cookies.parse(req.headers.cookie)
