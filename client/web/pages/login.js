@@ -1,6 +1,10 @@
 import { useState } from 'react'
 import fetch from 'node-fetch'
 import Cookies from 'js-cookie'
+
+import Navbar from '../components/navbar'
+
+
 const Home = ({}) => {
 
   const [auth, setAuth] = useState({
@@ -54,28 +58,9 @@ const Home = ({}) => {
     console.log(json)
   }
 
-  const logout = async () => {
-    const url = 'http://hhar.com/api/logout'
-
-    const req = await fetch(url, {
-      method: 'POST',
-      //credentials: "include",
-    })
-
-    if (req.ok) {
-      console.log(req)
-    } else {
-      console.log("you Suck!")
-    }
-  }
-
-  const cok = () => {
-    console.log(Cookies.get())
-    console.log(Cookies.get('Authorization'))
-  }
-
   return (
     <>
+      <Navbar />
       <h1>Login Form</h1><br />
       {auth.username || "None"} | {auth.password || "None"}
       <div>
@@ -84,18 +69,9 @@ const Home = ({}) => {
           <input type="password" name="password" id="password" value={auth.password} onChange={handleChange} />
           <button type="submit">Login</button>
         </form>
-        <button onClick={logout}>Logout</button>
       </div>
-      <button onClick={fetchData}>Fetch Now</button>
-      <button onClick={cok}>Get Cookies</button>
     </>
   )
-}
-
-Home.getInitialProps = ({ req, res }) => {
-
-  return {}
-
 }
 
 export default Home
