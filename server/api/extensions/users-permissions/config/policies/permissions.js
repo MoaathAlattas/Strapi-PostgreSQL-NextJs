@@ -3,7 +3,13 @@ const _ = require('lodash');
 module.exports = async (ctx, next) => {
     let role;
 
-    if (ctx.request && ctx.request.header && ctx.request.header.authorization) {
+    if (ctx.request && 
+        ((ctx.request.header && ctx.request.header.authorization) ||
+        (ctx.cookies && ctx.cookies.get('Authorization')))
+        ) {
+
+        ctx.request.header.authorization = `Bearer ${ctx.cookies.get('Authorization')}`
+
         try {
             const { id, isAdmin = false } = await strapi.plugins[
                 'users-permissions'

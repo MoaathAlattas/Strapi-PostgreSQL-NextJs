@@ -1,14 +1,11 @@
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import fetch from 'node-fetch'
 import Cookies from 'js-cookie'
-import cookies from 'cookie'
-const Home = ({ jwt }) => {
+const Home = ({}) => {
 
   const [auth, setAuth] = useState({
     username: '',
     password: '',
-    jwt,
-    user: {},
     error: null
   })
 
@@ -21,7 +18,7 @@ const Home = ({ jwt }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault()
-    const url = 'http://api.hhar.com/auth/local'
+    const url = 'http://hhar.com/api/login'
 
     const req = await fetch(url, {
       method: 'POST',
@@ -38,12 +35,7 @@ const Home = ({ jwt }) => {
 
     if (req.ok) {
       const res = await req.json()
-      setAuth({
-        ...auth,
-        ...res,
-      })
       console.log(res)
-      Cookies.set('Authorization', res.jwt, { domain: 'hhar.com' })
     } else {
       console.log("you Suck!")
     }
@@ -56,18 +48,25 @@ const Home = ({ jwt }) => {
     const req = await fetch("http://api.hhar.com/posts",
       {
         credentials: "include",
-        headers: {
-          Authorization: `Bearer ${auth.jwt}`,
-        },
       }
     )
     const json = await req.json()
     console.log(json)
   }
 
-  const logout = () => {
-    Cookies.remove('Authorization')
-    // remove token from state
+  const logout = async () => {
+    const url = 'http://hhar.com/api/logout'
+
+    const req = await fetch(url, {
+      method: 'POST',
+      //credentials: "include",
+    })
+
+    if (req.ok) {
+      console.log(req)
+    } else {
+      console.log("you Suck!")
+    }
   }
 
   const cok = () => {
@@ -94,14 +93,6 @@ const Home = ({ jwt }) => {
 }
 
 Home.getInitialProps = ({ req, res }) => {
-  // server
-  if (typeof window === 'undefined' && req.headers.cookie) {
-    const { Authorization } = cookies.parse(req.headers.cookie)
-
-    return {
-      jwt: Authorization
-    }
-  }
 
   return {}
 
