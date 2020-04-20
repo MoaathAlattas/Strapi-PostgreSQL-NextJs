@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import Router from "next/router"
 import {login} from '../utils/auth'
-
+import WithoutAuth from "../components/helpers/withoutAuth";
 import Navbar from '../components/navbar'
 
 
@@ -49,4 +49,4 @@ const Page = ({}) => {
   )
 }
 
-export default Page
+export default WithoutAuth(Page)
