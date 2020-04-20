@@ -1,3 +1,5 @@
+import fetch from 'node-fetch'
+
 export async function login({identifier,password}){
 
     const url = 'http://hhar.com/api/login'
@@ -12,8 +14,8 @@ export async function login({identifier,password}){
 
 
     if (data.ok) {
-        return await data.json()
         console.log(data)
+        return await data.json()
       } else {
         console.log("you Suck!")
         return;
@@ -33,12 +35,16 @@ export async function logout(){
     }
 }
 
-export async function current(){
+export async function current(ctx={}){
+    const {req} = ctx
+    const options = {
+        credentials: "include",
+    }
+
+    if (req) options.headers = { cookie: req.headers.cookie };
 
     const url = 'http://api.hhar.com/users/me'
-    const data = await fetch(url, {
-      credentials: "include",
-    })
+    const data = await fetch(url, options)
 
     if(data.ok){
       const js = await data.json()

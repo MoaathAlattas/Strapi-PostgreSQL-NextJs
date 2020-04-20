@@ -2,12 +2,12 @@ import fetch from 'node-fetch'
 import Navbar from '../components/navbar'
 import WithAuth from '../components/helpers/withAuth'
 
-const Posts = ({ data }) => {
+const Posts = ({ data, user }) => {
   return (
     <>
     <Navbar />
       <h1>Next.js App!</h1><br />
-      
+      {user && user.username}
       {data[0] && data.map((post) => (
         <div key={post.id}>
           <h2>{post.title}</h2>
