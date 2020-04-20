@@ -1,21 +1,9 @@
 import Link from 'next/link'
-import { useState, useEffect } from 'react'
+import { useEffect } from 'react'
 import Navbar from '../components/navbar'
+import {logout} from '../utils/auth'
 
-const Page = ({}) => {
-
-  
-  const logout = async () => {
-    const url = 'http://hhar.com/api/logout'
-
-    const req = await fetch(url, {method: 'POST'})
-
-    if (req.ok) {
-      console.log(req)
-    } else {
-      console.log("you Suck!")
-    }
-  }
+const Page = () => {
 
 useEffect(()=>{ logout() },[])
 

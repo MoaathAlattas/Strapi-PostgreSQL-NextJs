@@ -1,8 +1,8 @@
 import fetch from 'node-fetch'
 import Navbar from '../components/navbar'
+import WithAuth from '../components/helpers/withAuth'
 
-
-const Home = ({ data }) => {
+const Posts = ({ data }) => {
   return (
     <>
     <Navbar />
@@ -19,7 +19,7 @@ const Home = ({ data }) => {
   )
 }
 
-Home.getInitialProps = async ({req, res}) => {
+Posts.getInitialProps = async ({req}) => {
 
   const options = {
     method: 'GET',
@@ -36,4 +36,4 @@ Home.getInitialProps = async ({req, res}) => {
 }
 
 
-export default Home
+export default WithAuth(Posts)

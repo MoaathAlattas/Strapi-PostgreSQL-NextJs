@@ -1,21 +1,18 @@
 import Link from 'next/link'
 import { useState, useEffect } from 'react'
-
+import {current} from '../utils/auth'
 const Page = ({}) => {
 
   const [user, setUser] = useState({})
   
- const  getUser = async () => {
-    const res = await fetch(`http://api.hhar.com/users/me`, {
-      credentials: "include",
-    })
-    if(res.ok){
-      const js = await res.json()
-      setUser(js)
-      return js
-    }
+  const getUser = async () => {
+    const currentUser = await current()
+    setUser(currentUser)
   }
-useEffect(()=>{ getUser() },[])
+  
+useEffect(()=>{
+   if(!user.id) getUser(); 
+},[])
 
   return (
     <div>
