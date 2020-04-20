@@ -27,7 +27,7 @@ const withAuth = (Page) =>{
             if(Page.getInitialProps) prevProps = await Page.getInitialProps(ctx);
             }
             
-            return {...prevProps, user} 
+            return {...prevProps} 
             
       }
       

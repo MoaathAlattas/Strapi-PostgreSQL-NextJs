@@ -14,7 +14,7 @@ export const AppProvider = (props)=>{
       },[])
 
     return (
-        <AppContext.Provider value={{user:user,setUser:setUser}}>
+        <AppContext.Provider value={{user,setUser}}>
             {props.children}
         </AppContext.Provider>
     )
