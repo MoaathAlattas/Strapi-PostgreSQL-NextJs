@@ -58,7 +58,7 @@ export async function current(ctx={}){
       const js = await data.json()
       return js
     }else{
-        return {}
+        return null
     }
 
 }

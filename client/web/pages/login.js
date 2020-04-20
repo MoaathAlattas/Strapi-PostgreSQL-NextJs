@@ -3,9 +3,12 @@ import Router from "next/router"
 import {login} from '../utils/auth'
 import WithoutAuth from "../components/helpers/withoutAuth";
 import Navbar from '../components/navbar'
-
+import AppContext from "../context/appContext"
+import { useContext } from 'react'
 
 const Page = ({}) => {
+
+  const {setUser} = useContext(AppContext)
 
   const [auth, setAuth] = useState({
     identifier: '',
@@ -22,14 +25,16 @@ const Page = ({}) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault()
-    const result =  await login({identifier: auth.identifier,password: auth.password})
-    if(result.jwt){
-     if(Router.query && Router.query.redirect){ 
-        Router.push(Router.query.redirect)
-    }else{
-      Router.push('/')
-    }
-
+    const {jwt, user} =  await login({identifier: auth.identifier,password: auth.password})
+    if(user){
+      setUser({...user})
+      
+      if(Router.query && Router.query.redirect){ 
+          Router.push(Router.query.redirect)
+        }else{
+          Router.push('/')
+        }
+    
     }
   }
 

@@ -1,10 +1,16 @@
 import Navbar from '../components/navbar'
-import WithAuth from '../components/helpers/withAuth'
 import {logout} from '../utils/auth'
 import Router from 'next/router'
-import Cookies from 'cookies'
+import AppContext from "../context/appContext"
+import { useContext, useEffect } from 'react'
+
 
 const Page = () => {
+
+  const {setUser} = useContext(AppContext)
+  
+  useEffect(()=>{setUser(null)},[])
+
   return (
     <div>
         <Navbar />
@@ -21,7 +27,7 @@ Page.getInitialProps = async (ctx) => {
         res.writeHead(301,{Location: `/`})
         res.end()
     } else {
-        Router.push(`/`)
+      Router.push(`/`)
     }
   }
   return {}

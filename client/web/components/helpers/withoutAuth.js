@@ -13,7 +13,7 @@ const helper = (Page) =>{
 
             const user = await current(ctx)
             
-            if(user.id){
+            if(user){
 
                   if(typeof window === 'undefined') {
                         res.writeHead(301,{Location: `/`})

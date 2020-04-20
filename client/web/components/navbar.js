@@ -1,12 +1,20 @@
 import Link from 'next/link'
+import AppContext from '../context/appContext'
+import { useContext } from 'react'
+
 const Page = ({}) => {
 
+  const {user} = useContext(AppContext)
+  
   return (
     <div>
-        <Link href="/"><a>Home</a></Link> -
-        <Link href="/posts"><a>Posts</a></Link> -
-        <Link href="/login"><a>Login</a></Link> -
-        <Link href="/logout"><a>Logout</a></Link> -
+         {user &&  `Welcome ${user.username} |`}  
+        <Link href="/"><a>Home</a></Link> - {' '}
+        <Link href="/posts"><a>Posts</a></Link> - {' '} 
+        {!user
+          ?<Link href="/login"><a>Login</a></Link>
+          :<Link href="/logout"><a>Logout</a></Link>
+        }
     </div>
   )
 }
