@@ -11,7 +11,7 @@ export default async (req, res) => {
         });
         res.status(200).end()
     }
-
-    res.status(401).end()
+    
+    res.status(404).end()
 
   }

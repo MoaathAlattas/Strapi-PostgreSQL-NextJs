@@ -6,8 +6,7 @@ import Navbar from '../components/navbar'
 
 
 const Page = ({}) => {
-  console.log(Router);
-  
+
   const [auth, setAuth] = useState({
     identifier: '',
     password: '',

@@ -21,10 +21,10 @@ const withAuth = (Page) =>{
                   } else {
                         Router.push(`/login?redirect=${pathname}`)
                   }
-            }
-            
-            if(Page.getInitialProps){
-                  prevProps = await Page.getInitialProps(ctx)
+
+            }else{
+
+            if(Page.getInitialProps) prevProps = await Page.getInitialProps(ctx);
             }
             
             return {...prevProps, user} 

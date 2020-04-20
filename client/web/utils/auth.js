@@ -23,16 +23,24 @@ export async function login({identifier,password}){
 
 }
 
-export async function logout(){
+export async function logout(ctx={}){
+    const {req} = ctx
+    const options = {
+        method: 'POST',
+        credentials: "include",
+    }
+
+    if (req) options.headers = { cookie: req.headers.cookie };
 
     const url = 'http://hhar.com/api/logout'
-    const data = await fetch(url, {method: 'POST'})
+    const data = await fetch(url, options)
 
     if (data.ok) {
       console.log(data)
     } else {
       console.log("you Suck!")
     }
+    return data
 }
 
 export async function current(ctx={}){
