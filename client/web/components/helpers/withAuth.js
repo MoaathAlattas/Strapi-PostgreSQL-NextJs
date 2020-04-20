@@ -1,12 +1,12 @@
 import {current} from '../../utils/auth'
 import Router from "next/router"
+
 const withAuth = (Page) =>{
 
       function Component(props){
             return (<Page {...props} />)
       }
 
-       
       Component.getInitialProps = async (ctx)=>{
             const {res,pathname} = ctx
             let prevProps = {}

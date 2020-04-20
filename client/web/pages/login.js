@@ -1,12 +1,13 @@
 import { useState } from 'react'
-import fetch from 'node-fetch'
+import Router from "next/router"
 import {login} from '../utils/auth'
 
 import Navbar from '../components/navbar'
 
 
-const Home = ({}) => {
-
+const Page = ({}) => {
+  console.log(Router);
+  
   const [auth, setAuth] = useState({
     identifier: '',
     password: '',
@@ -22,7 +23,15 @@ const Home = ({}) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault()
-    await login({identifier: auth.identifier,password: auth.password})
+    const result =  await login({identifier: auth.identifier,password: auth.password})
+    if(result.jwt){
+     if(Router.query && Router.query.redirect){ 
+        Router.push(Router.query.redirect)
+    }else{
+      Router.push('/')
+    }
+
+    }
   }
 
   return (
@@ -41,4 +50,4 @@ const Home = ({}) => {
   )
 }
 
-export default Home
+export default Page
