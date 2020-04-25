@@ -1,43 +1,45 @@
-import Cookies from 'cookies'
-import fetch from 'node-fetch'
-
+const Cookies = require('cookies')
+const fetch = require('node-fetch')
 
 export default async (req, res) => {
-    res.setHeader('Content-Type', 'application/json')
+  res.setHeader('Content-Type', 'application/json')
 
-    const cookies = new Cookies(req, res);
-    
-    if (req.method === 'POST') {
+  const cookies = new Cookies(req, res);
 
-      if(!cookies.get("Authorization")){
+  if (req.method === 'POST') {
 
-        let {identifier, password} = req.body
+    if (!cookies.get("Authorization")) {
 
-        const url = 'http://api.hhar.com/auth/local'
-        const data = await fetch(url, {
-            method: 'POST',
-            credentials: "include",
-            headers: {
-              'Content-type': 'application/json'
-            },
-            body: JSON.stringify({identifier,password})
-          })
-      
-          if (data.ok) {
-            const json = await data.json()
-            cookies.set("Authorization", json.jwt, { httpOnly: true, domain:"hhar.com" });
-            res.status(200).json(json)
-          } else {
-            res.status(401).json({ name: "you Suck!" })
-          }
+      let { identifier, password } = req.body
 
-      }else{
-        //refresh token
-        res.status(200).json({jwt:cookies.get("Authorization")})
-      }
-        
+      const url = `http://localhost:1337/auth/local`
+      const data = await fetch(url, {
+        method: 'POST',
+        credentials: "include",
+        headers: {
+          'Content-type': 'application/json'
+        },
+        body: JSON.stringify({ identifier, password })
+      })
+
+      if (data.ok) {
+        const json = await data.json()
+        cookies.set("Authorization", json.jwt, { httpOnly: true, domain: `.${process.env.HOST_URL}` });
+        res.status(200).json(json)
+        return;
+      } else {
+        res.status(401).json({ name: "you Suck!" })
+        return;
       }
 
-    res.status(500).end()
+    } else {
+      //refresh token
+      res.status(200).json({ jwt: cookies.get("Authorization") })
+      return;
+    }
 
   }
+
+  res.status(500).end()
+
+}

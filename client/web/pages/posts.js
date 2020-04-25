@@ -5,7 +5,7 @@ import WithAuth from '../components/helpers/withAuth'
 const Posts = ({ data }) => {
   return (
     <>
-    <Navbar />
+      <Navbar />
       <h1>Next.js App!</h1><br />
       {data[0] && data.map((post) => (
         <div key={post.id}>
@@ -18,7 +18,7 @@ const Posts = ({ data }) => {
   )
 }
 
-Posts.getInitialProps = async ({req}) => {
+Posts.getInitialProps = async ({ req }) => {
   const options = {
     method: 'GET',
     credentials: 'include',
@@ -28,7 +28,7 @@ Posts.getInitialProps = async ({req}) => {
   }
   const data = await fetch(`http://api.hhar.com/posts`, options)
   const js = await data.json()
-  return { data: js  }
+  return { data: js }
 }
 
 

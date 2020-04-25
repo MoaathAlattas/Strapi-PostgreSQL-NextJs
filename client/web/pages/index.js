@@ -1,7 +1,7 @@
-import Link from 'next/link'
 import Navbar from '../components/navbar'
 
-const Home = () => {
+const Page = () => {
+
   return (
     <>
       <Navbar />
@@ -10,5 +10,4 @@ const Home = () => {
   )
 }
 
-
-export default Home
+export default Page

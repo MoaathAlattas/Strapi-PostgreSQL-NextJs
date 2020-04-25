@@ -1,15 +1,9 @@
-import {AppProvider} from '../context/appContext'
-function MyApp({ Component, pageProps }) {
-  return(
-    <AppProvider>
-      <Component {...pageProps} />
-    </AppProvider>
-  )
-}
+import { AppProvider } from '../context/appContext'
 
-// MyApp.getInitialProps = async (ctx)=>{
-//   const user = await current(ctx)
-//   return {user}
-// }
+const app = ({ Component, pageProps }) => (
+  <AppProvider>
+    <Component {...pageProps} />
+  </AppProvider>
+)
 
-export default MyApp
+export default app

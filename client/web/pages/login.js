@@ -1,14 +1,14 @@
 import { useState } from 'react'
 import Router from "next/router"
-import {login} from '../utils/auth'
+import { login } from '../utils/auth'
 import WithoutAuth from "../components/helpers/withoutAuth";
 import Navbar from '../components/navbar'
-import AppContext from "../context/appContext"
+import { AppContext } from "../context/appContext"
 import { useContext } from 'react'
 
-const Page = ({}) => {
+const Page = ({ }) => {
 
-  const {setUser} = useContext(AppContext)
+  const { setUser } = useContext(AppContext)
 
   const [auth, setAuth] = useState({
     identifier: '',
@@ -25,16 +25,16 @@ const Page = ({}) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault()
-    const {jwt, user} =  await login({identifier: auth.identifier,password: auth.password})
-    if(user){
-      setUser({...user})
-      
-      if(Router.query && Router.query.redirect){ 
-          Router.push(Router.query.redirect)
-        }else{
-          Router.push('/')
-        }
-    
+    const data = await login({ identifier: auth.identifier, password: auth.password })
+    if (data?.user) {
+      setUser({ ...data.user })
+
+      if (Router.query && Router.query.redirect) {
+        Router.push(Router.query.redirect)
+      } else {
+        Router.push('/')
+      }
+
     }
   }
 
@@ -42,7 +42,7 @@ const Page = ({}) => {
     <>
       <Navbar />
       <h1>Login Form</h1><br />
-      {auth.username || "None"} | {auth.password || "None"}
+      {auth.identifier || "None"} | {auth.password || "None"}
       <div>
         <form onSubmit={handleSubmit}>
           <input type="text" name="identifier" id="identifier" value={auth.identifier} onChange={handleChange} />
