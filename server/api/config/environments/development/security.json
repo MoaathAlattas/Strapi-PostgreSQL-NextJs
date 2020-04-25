@@ -24,7 +24,7 @@
   },
   "cors": {
     "enabled": true,
-    "origin": "http://hhar.com",
+    "origin": "${process.env.PROTOCOL}${process.env.HOST_URL}, ${process.env.PROTOCOL}${process.env.API_URL}",
     "credentials": true
   },
   "ip": {
