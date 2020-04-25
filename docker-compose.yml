@@ -24,8 +24,6 @@ services:
       main_network:
         aliases:
           - ${API_URL}
-    ports:
-      - ${APP_PORT}:80
     volumes:
       - main_volume:/app
     depends_on:
@@ -40,13 +38,24 @@ services:
       main_network:
         aliases:
           - ${HOST_URL}
-    ports:
-      - 3000:3000
     volumes:
       - main_volume:/app
     depends_on:
       - api
     command: yarn workspace client-web dev
+
+  nginx:
+    container_name: nginx
+    image: nginx:alpine
+    networks:
+     - main_network
+    ports:
+      - ${APP_PORT}:80
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf
+    depends_on:
+      - api
+      - webapp
 
 volumes:
   db_volume: {}
@@ -59,18 +68,3 @@ volumes:
 
 networks:
   main_network:
-
-
-  # nginx:
-  #   container_name: nginx
-  #   image: nginx:alpine
-  #   networks:
-  #     main_network:
-  #       aliases:
-  #         - hhar.com
-  #   ports:
-  #     - ${APP_PORT}:80
-  #   volumes:
-  #     - ./nginx.conf:/etc/nginx/nginx.conf
-  #   depends_on:
-  #     - webserver

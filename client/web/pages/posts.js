@@ -26,7 +26,7 @@ Posts.getInitialProps = async ({ req }) => {
   if (req) {
     options.headers = { cookie: req.headers.cookie }
   }
-  const data = await fetch(`http://api.hhar.com/posts`, options)
+  const data = await fetch(`${process.env.API_URL}/posts`, options)
   const js = await data.json()
   return { data: js }
 }

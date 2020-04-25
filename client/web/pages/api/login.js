@@ -12,7 +12,7 @@ export default async (req, res) => {
 
       let { identifier, password } = req.body
 
-      const url = `http://localhost:1337/auth/local`
+      const url = `${process.env.API_URL}/auth/local`
       const data = await fetch(url, {
         method: 'POST',
         credentials: "include",

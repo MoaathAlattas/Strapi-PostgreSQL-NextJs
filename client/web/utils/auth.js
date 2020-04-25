@@ -2,7 +2,7 @@ import fetch from 'node-fetch'
 
 export async function login({ identifier, password }) {
 
-  const url = 'http://hhar.com/api/login'
+  const url = `${process.env.APP_URL}/api/login`
   const data = await fetch(url, {
     method: 'POST',
     credentials: "include",
@@ -32,7 +32,7 @@ export async function logout(ctx = {}) {
 
   if (req) options.headers = { cookie: req.headers.cookie };
 
-  const url = 'http://hhar.com/api/logout'
+  const url = `${process.env.APP_URL}/api/logout`
   const data = await fetch(url, options)
 
   if (data.ok) {
@@ -51,7 +51,7 @@ export async function current(ctx = {}) {
 
   if (req) options.headers = { cookie: req.headers.cookie };
 
-  const url = 'http://api.hhar.com/users/me'
+  const url = `${process.env.API_URL}/users/me`
   const data = await fetch(url, options)
 
   if (data.ok) {

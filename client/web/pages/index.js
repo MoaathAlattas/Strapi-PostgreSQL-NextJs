@@ -6,6 +6,7 @@ const Page = () => {
   return (
     <>
       <Navbar />
+      {process.env.API_URL}
       <h1>Next.js App!</h1><br />
     </>
   )
@@ -13,9 +14,7 @@ const Page = () => {
 
 Page.getInitialProps = async () => {
 
-  if (typeof window === "undefined") {
-    let data = await fetch(`http://api.hhar.com/posts`)
-  }
+  let data = await fetch(`${process.env.API_URL}/posts`)
 
   return {}
 }
