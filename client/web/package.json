@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "dotenv -e ../../.env next dev --hostname 0.0.0.0",
+    "dev": "NODE_OPTIONS='--inspect=0.0.0.0:9002' next dev",
     "build": "dotenv -e ../../.env next build",
     "start": "dotenv -e ../../.env next start"
   },

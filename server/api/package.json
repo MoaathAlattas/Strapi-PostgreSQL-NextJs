@@ -4,7 +4,7 @@
   "version": "0.1.0",
   "description": "A Strapi application",
   "scripts": {
-    "develop": "dotenv -e ../../.env node server.js",
+    "develop": "NODE_OPTIONS='--inspect=0.0.0.0:9001' node server.js",
     "start": "dotenv -e ../../.env strapi start",
     "build": "dotenv -e ../../.env strapi build",
     "strapi": "strapi"

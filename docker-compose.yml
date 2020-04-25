@@ -20,6 +20,8 @@ services:
     container_name: api
     image: node:12-alpine
     working_dir: /app
+    ports:
+      - 9001:9001
     networks:
       main_network:
         aliases:
@@ -28,12 +30,14 @@ services:
       - main_volume:/app
     depends_on:
       - db
-    command: yarn workspace server-api develop
+    command: yarn dev:api
 
   webapp:
     container_name: webapp
     image: node:12-alpine
     working_dir: /app
+    ports:
+      - 9002:9002
     networks:
       main_network:
         aliases:
@@ -42,7 +46,7 @@ services:
       - main_volume:/app
     depends_on:
       - api
-    command: yarn workspace client-web dev
+    command: yarn dev:webapp
 
   nginx:
     container_name: nginx

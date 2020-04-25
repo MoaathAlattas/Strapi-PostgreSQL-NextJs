@@ -16,4 +16,4 @@ sudo service docker start
 sudo chmod -R 777 path/to/project
 
 
-- debug node NODE_OPTIONS='--inspect=0.0.0.0:9100'
+- debug node: NODE_OPTIONS='--inspect=0.0.0.0:9100'
