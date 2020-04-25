@@ -51,7 +51,7 @@ export async function current(ctx = {}) {
 
   if (req) options.headers = { cookie: req.headers.cookie };
 
-  const url = 'http://wld.com:1337/users/me'
+  const url = 'http://api.hhar.com/users/me'
   const data = await fetch(url, options)
 
   if (data.ok) {

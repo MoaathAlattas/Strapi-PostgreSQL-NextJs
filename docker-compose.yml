@@ -6,7 +6,9 @@ services:
     image: postgres:12.2-alpine
     restart: always
     networks:
-      - main_network
+      main_network:
+        aliases:
+          - ${DATABASE_HOST}
     volumes:
       - db_volume:/var/lib/postgresql/data
     environment:
@@ -14,42 +16,41 @@ services:
       POSTGRES_PASSWORD: ${DATABASE_PASSWORD}
       POSTGRES_DB: ${DATABASE_NAME}
 
-  webserver:
-    container_name: webserver
+  api:
+    container_name: api
     image: node:12-alpine
     working_dir: /app
     networks:
       main_network:
         aliases:
-          - wld.com
-    ports:
-      - 9000:9000
-      - 9100:9100
-      - 1337:1337
-      - 3000:3000
-    volumes:
-      - shared_volume:/app
-    depends_on:
-      - db
-    command: yarn dev
-
-  nginx:
-    container_name: nginx
-    image: nginx:alpine
-    networks:
-      main_network:
-        aliases:
-          - hhar.com
+          - ${API_URL}
     ports:
       - ${APP_PORT}:80
     volumes:
-      - ./nginx.conf:/etc/nginx/nginx.conf
+      - main_volume:/app
     depends_on:
-      - webserver
+      - db
+    command: yarn workspace server-api develop
+
+  webapp:
+    container_name: webapp
+    image: node:12-alpine
+    working_dir: /app
+    networks:
+      main_network:
+        aliases:
+          - ${HOST_URL}
+    ports:
+      - 3000:3000
+    volumes:
+      - main_volume:/app
+    depends_on:
+      - api
+    command: yarn workspace client-web dev
 
 volumes:
   db_volume: {}
-  shared_volume:
+  main_volume:
     driver: local
     driver_opts:
       type: none
@@ -58,3 +59,18 @@ volumes:
 
 networks:
   main_network:
+
+
+  # nginx:
+  #   container_name: nginx
+  #   image: nginx:alpine
+  #   networks:
+  #     main_network:
+  #       aliases:
+  #         - hhar.com
+  #   ports:
+  #     - ${APP_PORT}:80
+  #   volumes:
+  #     - ./nginx.conf:/etc/nginx/nginx.conf
+  #   depends_on:
+  #     - webserver

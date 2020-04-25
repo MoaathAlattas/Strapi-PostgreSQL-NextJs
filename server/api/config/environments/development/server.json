@@ -1,6 +1,6 @@
 {
   "host": "0.0.0.0",
-  "port": "${process.env.INTERNAL_API_PORT}",
+  "port": "${process.env.APP_PORT}",
   "proxy": {
     "enabled": true,
     "host": "${process.env.API_URL}",

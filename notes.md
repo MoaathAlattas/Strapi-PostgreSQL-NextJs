@@ -12,5 +12,8 @@ xxxxx$ ip route | grep default | awk '{print $3}'
 - to start docker run:
 sudo service docker start
 
-- yarn access problem 
+- yarn access problem
 sudo chmod -R 777 path/to/project
+
+
+- debug node NODE_OPTIONS='--inspect=0.0.0.0:9100'

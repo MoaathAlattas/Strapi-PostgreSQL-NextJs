@@ -3,9 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "NODE_OPTIONS='--inspect=0.0.0.0:9100' next dev",
-    "build": "next build",
-    "start": "next start"
+    "dev": "dotenv -e ../../.env next dev",
+    "build": "dotenv -e ../../.env next build",
+    "start": "dotenv -e ../../.env next start"
   },
   "dependencies": {
     "next": "9.3.4"
