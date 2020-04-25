@@ -4,12 +4,12 @@
     "default": {
       "connector": "bookshelf",
       "settings": {
-        "client": "${process.env.DATABASE_CLIENT || 'postgres'}",
-        "database": "${process.env.DATABASE_NAME || 'strapi'}",
-        "host": "${process.env.DATABASE_HOST || 'db'}",
-        "port": "${process.env.DATABASE_PORT || 5432}",
-        "username": "${process.env.DATABASE_USERNAME || 'strapi'}",
-        "password": "${process.env.DATABASE_PASSWORD || 'strapi'}"
+        "client": "${process.env.DATABASE_CLIENT}",
+        "database": "${process.env.DATABASE_NAME}",
+        "host": "${process.env.DATABASE_HOST}",
+        "port": "${process.env.DATABASE_PORT}",
+        "username": "${process.env.DATABASE_USERNAME}",
+        "password": "${process.env.DATABASE_PASSWORD}"
       },
       "options": {}
     }

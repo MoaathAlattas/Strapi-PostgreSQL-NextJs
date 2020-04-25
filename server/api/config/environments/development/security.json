@@ -24,7 +24,7 @@
   },
   "cors": {
     "enabled": true,
-    "origin": "${process.env.PROTOCOL}${process.env.HOST_URL}${process.env.APP_PORT !== '80'?`:${process.env.APP_PORT}`: ''}, ${process.env.PROTOCOL}${process.env.API_URL}${process.env.APP_PORT !== '80'?`:${process.env.APP_PORT}`: ''}",
+    "origin": "${process.env.APP_PROTOCOL}${process.env.PROXY_HOST}${process.env.PROXY_PORT !== '80'?`:${process.env.PROXY_PORT}`: ''}, ${process.env.APP_PROTOCOL}${process.env.API_HOST}${process.env.API_PORT !== '80'?`:${process.env.API_PORT}`: ''}, ${process.env.APP_PROTOCOL}${process.env.WEBAPP_HOST}${process.env.WEBAPP_PORT !== '80'?`:${process.env.WEBAPP_PORT}`: ''}",
     "credentials": true
   },
   "ip": {

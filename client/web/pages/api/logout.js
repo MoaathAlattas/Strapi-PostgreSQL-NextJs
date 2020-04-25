@@ -6,7 +6,7 @@ export default async (req, res) => {
 
     if (req.method === 'POST' && cookies.get("Authorization")) {
         cookies.set("Authorization", null, {
-            domain: `.${process.env.HOST_URL}`,
+            domain: `.${process.env.PROXY_HOST}`,
             maxAge: 0, overwrite: true
         });
         res.status(200).end()

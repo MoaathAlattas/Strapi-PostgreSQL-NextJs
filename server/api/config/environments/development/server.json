@@ -1,10 +1,10 @@
 {
   "host": "0.0.0.0",
-  "port": "${process.env.APP_PORT}",
+  "port": "${process.env.API_PORT}",
   "proxy": {
-    "enabled": true,
-    "host": "${process.env.API_URL}",
-    "port": "${process.env.APP_PORT}"
+    "enabled": "${process.env.API_PROXY_ENABLED}",
+    "host": "${process.env.API_HOST}",
+    "port": "${process.env.API_PORT}"
   },
   "cron": {
     "enabled": false

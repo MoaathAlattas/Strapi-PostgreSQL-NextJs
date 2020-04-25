@@ -1,6 +1,6 @@
 module.exports = {
     env: {
-        API_URL: `${process.env.PROTOCOL}${process.env.API_URL}${process.env.APP_PORT !== '80' ? `:${process.env.APP_PORT}` : ''}`,
-        APP_URL: `${process.env.PROTOCOL}${process.env.HOST_URL}${process.env.APP_PORT !== '80' ? `:${process.env.APP_PORT}` : ''}`,
+        API_URL: `${process.env.APP_PROTOCOL}${process.env.API_HOST}${process.env.API_PORT !== '80' ? `:${process.env.API_PORT}` : ''}`,
+        APP_URL: `${process.env.APP_PROTOCOL}${process.env.PROXY_HOST}${process.env.PROXY_PORT !== '80' ? `:${process.env.PROXY_PORT}` : ''}`,
     },
 }
