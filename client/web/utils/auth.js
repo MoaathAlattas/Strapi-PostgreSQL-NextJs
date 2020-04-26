@@ -24,37 +24,36 @@ export async function login({ identifier, password }) {
 }
 
 export async function logout(ctx = {}) {
-  const { req } = ctx
+  let { req } = ctx
   const options = {
     method: 'POST',
-    credentials: "include",
+    credentials: "include"
   }
 
-  if (req) options.headers = { cookie: req.headers.cookie };
+  if (req) {
+    options.headers = { cookie: req.headers.cookie }
+  }
 
   const url = `${process.env.APP_URL}/api/logout`
   const data = await fetch(url, options)
 
-  if (data.ok) {
-    console.log(data)
-  } else {
-    console.log("you Suck!")
-  }
   return data
 }
 
 export async function current(ctx = {}) {
-  const options = {
-    credentials: "include",
-  }
+  let { req } = ctx
   const url = `${process.env.APP_URL}/api/me`
-  const data = await fetch(url, options)
 
-  if (data.ok) {
-    const js = await data.json()
-    return js
-  } else {
-    return null
+  let options = {
+    credentials: "include"
   }
 
+  if (req) {
+    options.headers = { cookie: req.headers.cookie }
+  }
+
+  const data = await fetch(url, options)
+  if (data.ok) {
+    return await data.json()
+  }
 }

@@ -21,7 +21,6 @@ export default async (req, res) => {
             if (data.ok) {
                 const json = await data.json()
                 res.status(200).json(json)
-                return;
             }
 
         } else {
