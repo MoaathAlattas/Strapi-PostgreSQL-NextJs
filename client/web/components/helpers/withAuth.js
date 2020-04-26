@@ -1,10 +1,23 @@
+
 import { current } from '../../utils/auth'
 import Router from "next/router"
+import { useContext, useEffect } from 'react'
+import { AppContext } from '../../context/appContext'
 
 const withAuth = (Page) => {
 
       function Component(props) {
-            return (<Page {...props} />)
+
+            const { setUser } = useContext(AppContext)
+
+            useEffect(() => {
+                  setUser(props.user)
+            }, [])
+
+            if (props.user?.id) return <Page {...props} />;
+
+            Router.push(`/login?redirect=${props.pathname}`)
+            return null
       }
 
       Component.getInitialProps = async (ctx) => {
@@ -14,21 +27,16 @@ const withAuth = (Page) => {
             const user = await current(ctx)
 
             if (!user?.id) {
-
                   if (typeof window === 'undefined') {
                         res.writeHead(301, { Location: `/login?redirect=${pathname}` })
                         res.end()
-                  } else {
-                        Router.push(`/login?redirect=${pathname}`)
                   }
 
             } else {
-
                   if (Page.getInitialProps) prevProps = await Page.getInitialProps(ctx);
             }
 
-            return { ...prevProps }
-
+            return { ...prevProps, user, pathname }
       }
 
 

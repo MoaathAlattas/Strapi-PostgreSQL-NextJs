@@ -9,7 +9,7 @@ const Page = () => {
 
   const { setUser } = useContext(AppContext)
 
-  useEffect(() => { setUser(null) }, [])
+  useEffect(() => { setUser({}) }, [])
 
   return (
     <div>
@@ -30,7 +30,7 @@ Page.getInitialProps = async (ctx) => {
       Router.push(`/`)
     }
   }
-  return {}
+  return { result }
 }
 
 

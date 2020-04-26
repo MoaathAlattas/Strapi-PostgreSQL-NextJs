@@ -24,7 +24,8 @@ export default async (req, res) => {
 
       const json = await data.json()
       if (data.ok) {
-        cookies.set("Authorization", json.jwt, { httpOnly: true, domain: `.${process.env.PROXY_HOST}` });
+        cookies.set("Authorization", json.jwt, { httpOnly: true, domain: `.${process.env.PROXY_HOST}` })
+        cookies.set("user", JSON.stringify(json.user), { httpOnly: false, domain: `.${process.env.PROXY_HOST}` });
         res.status(200).json(json)
         return;
       } else {

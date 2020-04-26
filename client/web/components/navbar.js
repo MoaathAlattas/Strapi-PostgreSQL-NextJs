@@ -7,7 +7,7 @@ const Page = () => {
   const { user } = useContext(AppContext)
 
   return (
-    <div>
+    <>
       {user?.id && `Welcome ${user.username} | `}
       <Link href="/"><a>Home</a></Link> - {' '}
       <Link href="/posts"><a>Posts</a></Link> - {' '}
@@ -15,7 +15,7 @@ const Page = () => {
         ? <Link href="/login"><a>Login</a></Link>
         : <Link href="/logout"><a>Logout</a></Link>
       }
-    </div>
+    </>
   )
 }
 

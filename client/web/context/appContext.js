@@ -1,17 +1,12 @@
-import React, { useEffect, useState } from 'react'
-import { current } from '../utils/auth'
-const AppContext = React.createContext(false)
+import { useState, createContext, useEffect } from 'react'
+import Cookies from 'js-cookie'
+const AppContext = createContext({})
 
 const AppProvider = (props) => {
-  const [user, setUser] = useState(null)
 
-  useEffect(() => {
-    ; (
-      async function () {
-        setUser(await current())
-      }
-    )()
-  }, [])
+  const userCookie = JSON.parse(Cookies.get('user') || "{}")
+
+  const [user, setUser] = useState(userCookie)
 
   return (
     <AppContext.Provider value={{ user, setUser }}>

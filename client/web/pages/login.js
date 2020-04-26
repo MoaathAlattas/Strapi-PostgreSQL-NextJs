@@ -27,7 +27,7 @@ const Page = ({ }) => {
     e.preventDefault()
     const data = await login({ identifier: auth.identifier, password: auth.password })
     if (data?.user) {
-      setUser({ ...data.user })
+      setUser(data.user)
 
       if (Router.query && Router.query.redirect) {
         Router.push(Router.query.redirect)
@@ -46,7 +46,7 @@ const Page = ({ }) => {
       <div>
         <form onSubmit={handleSubmit}>
           <input type="text" name="identifier" id="identifier" value={auth.identifier} onChange={handleChange} />
-          <input type="password" name="password" id="password" value={auth.password} onChange={handleChange} />
+          <input type="password" name="password" id="password" value={auth.password} onChange={handleChange} autoComplete="true" />
           <button type="submit">Login</button>
         </form>
       </div>
