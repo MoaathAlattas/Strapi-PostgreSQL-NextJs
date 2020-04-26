@@ -8,10 +8,10 @@ const Page = () => {
 
   return (
     <div>
-      {user && `Welcome ${user.username} | `}
+      {user?.id && `Welcome ${user.username} | `}
       <Link href="/"><a>Home</a></Link> - {' '}
       <Link href="/posts"><a>Posts</a></Link> - {' '}
-      {!user
+      {!user?.id
         ? <Link href="/login"><a>Login</a></Link>
         : <Link href="/logout"><a>Logout</a></Link>
       }

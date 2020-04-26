@@ -1,36 +1,36 @@
-import {current} from '../../utils/auth'
+import { current } from '../../utils/auth'
 import Router from "next/router"
 
-const helper = (Page) =>{
+const helper = (Page) => {
 
-      function Component(props){
+      function Component(props) {
             return (<Page {...props} />)
       }
 
-      Component.getInitialProps = async (ctx)=>{
-            const {res} = ctx
+      Component.getInitialProps = async (ctx) => {
+            const { res } = ctx
             let prevProps = {}
 
-            const user = await current(ctx)
-            
-            if(user){
+            const user = await current()
 
-                  if(typeof window === 'undefined') {
-                        res.writeHead(301,{Location: `/`})
+            if (user?.id) {
+
+                  if (typeof window === 'undefined') {
+                        res.writeHead(301, { Location: `/` })
                         res.end()
                   } else {
                         Router.push(`/`)
                   }
 
-            }else{
+            } else {
 
-            if(Page.getInitialProps) prevProps = await Page.getInitialProps(ctx);
+                  if (Page.getInitialProps) prevProps = await Page.getInitialProps(ctx);
             }
-            
-            return {...prevProps, user} 
-            
+
+            return { ...prevProps, user }
+
       }
-      
+
 
       return Component
 }

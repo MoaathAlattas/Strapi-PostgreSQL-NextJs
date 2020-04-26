@@ -44,14 +44,10 @@ export async function logout(ctx = {}) {
 }
 
 export async function current(ctx = {}) {
-  const { req } = ctx
   const options = {
     credentials: "include",
   }
-
-  if (req) options.headers = { cookie: req.headers.cookie };
-
-  const url = `${process.env.API_URL}/users/me`
+  const url = `${process.env.APP_URL}/api/me`
   const data = await fetch(url, options)
 
   if (data.ok) {
