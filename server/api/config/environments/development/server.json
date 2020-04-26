@@ -11,5 +11,8 @@
   },
   "admin": {
     "autoOpen": false
+  },
+  "autoReload": {
+    "enabled": true
   }
 }
