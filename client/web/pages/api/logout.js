@@ -1,4 +1,4 @@
-import Cookies from 'cookies'
+const Cookies = require('cookies')
 
 export default async (req, res) => {
 

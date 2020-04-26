@@ -15,7 +15,7 @@
     "react-dom": "16.13.1"
   },
   "scripts": {
-    "dev:webapp": "dotenv concurrently  \"yarn workspace client-web dev\"",
+    "dev:webapp": "dotenv concurrently  \"yarn workspace client-web dev -p 80\"",
     "dev:api": "dotenv concurrently  \"yarn workspace server-api develop\"",
     "dev": "dotenv concurrently  \"yarn workspace server-api develop\" \"yarn workspace client-web dev\""
   }
