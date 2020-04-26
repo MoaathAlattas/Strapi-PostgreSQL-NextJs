@@ -5,13 +5,13 @@ const AppContext = React.createContext(false)
 const AppProvider = (props) => {
   const [user, setUser] = useState(null)
 
-  // useEffect(() => {
-  //   ; (
-  //     async function () {
-  //       setUser(await current())
-  //     }
-  //   )()
-  // }, [])
+  useEffect(() => {
+    ; (
+      async function () {
+        setUser(await current())
+      }
+    )()
+  }, [])
 
   return (
     <AppContext.Provider value={{ user, setUser }}>

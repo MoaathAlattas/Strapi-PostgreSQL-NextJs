@@ -14,7 +14,9 @@ const Page = () => {
 
 Page.getInitialProps = async () => {
 
-  let data = await fetch(`${process.env.API_URL}/posts`)
+  await fetch(`${process.env.API_URL}/posts`, {
+    credentials: "include",
+  })
 
   return {}
 }

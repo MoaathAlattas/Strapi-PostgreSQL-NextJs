@@ -2,6 +2,7 @@
   "timeout": 100,
   "load": {
     "before": [
+      "auth-cookie",
       "responseTime",
       "logger",
       "cors",

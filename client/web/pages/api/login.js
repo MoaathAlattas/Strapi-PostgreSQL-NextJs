@@ -22,13 +22,13 @@ export default async (req, res) => {
         body: JSON.stringify({ identifier, password })
       })
 
+      const json = await data.json()
       if (data.ok) {
-        const json = await data.json()
         cookies.set("Authorization", json.jwt, { httpOnly: true, domain: `.${process.env.PROXY_HOST}` });
         res.status(200).json(json)
         return;
       } else {
-        res.status(401).json({ name: "you Suck!" })
+        res.status(401).json({ json })
         return;
       }
 
