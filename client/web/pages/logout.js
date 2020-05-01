@@ -1,5 +1,5 @@
 import MainLayout from '../layouts/mainLayout'
-import { logout } from '../utils/auth'
+import { auth } from '../services/api'
 import Router from 'next/router'
 import { AppContext } from "../context/appContext"
 import { useContext, useEffect } from 'react'
@@ -20,7 +20,8 @@ const Page = () => {
 
 Page.getInitialProps = async (ctx) => {
   const { res } = ctx
-  const result = await logout(ctx)
+  globalThis.ctx = ctx
+  const result = await auth.logout()
   if (!result.ok) {
     if (typeof window === 'undefined') {
       res.writeHead(301, { Location: `/` })

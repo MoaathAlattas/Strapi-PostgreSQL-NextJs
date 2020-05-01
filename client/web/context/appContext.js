@@ -1,10 +1,16 @@
-import { useState, createContext, useEffect } from 'react'
+import { useState, createContext } from 'react'
+import { auth } from "../services/api"
 import Cookies from 'js-cookie'
 const AppContext = createContext({})
 
 const AppProvider = (props) => {
+  let user = {}
 
-  const userCookie = JSON.parse(Cookies.get('user') || "{}")
+  if (typeof window !== "undefined") {
+    user = JSON.parse(Cookies.get('user') || "{}")
+  } else {
+    user = { id: 23, username: "moaath" };
+  }
 
   const [user, setUser] = useState(userCookie)
 

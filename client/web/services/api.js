@@ -6,7 +6,7 @@ function handleErrors(res) {
 async function _get(url = null, opt = null) {
     let ctx = globalThis.ctx || null
     let options = { credentials: "include", ...opt }
-    if (ctx.req) {
+    if (ctx?.req) {
         options.headers = { ...options.headers, cookie: ctx.req.headers.cookie }
     }
     const data = await (await fetch(url, options).then(handleErrors)).json()
@@ -25,7 +25,7 @@ async function _post(method, url = null, body = null, opt = null) {
         body: JSON.stringify(body),
         ...opt
     }
-    if (ctx.req) {
+    if (ctx?.req) {
         options.headers = { ...options.headers, cookie: ctx.req.headers.cookie }
     }
     const data = await (await fetch(url, options).then(handleErrors)).json()
@@ -42,7 +42,7 @@ async function _del(url = null, opt = null) {
         credentials: "include",
         ...opt
     }
-    if (ctx.req) {
+    if (ctx?.req) {
         options.headers = { ...options.headers, cookie: ctx.req.headers.cookie }
     }
     const data = await (await fetch(url, options).then(handleErrors)).json()

@@ -2,11 +2,11 @@ import MainLayout from '../layouts/mainLayout'
 import { query } from '../services/api'
 import WithAuth from '../components/helpers/withAuth'
 
-const Posts = ({ data }) => {
+const Posts = ({ posts }) => {
   return (
     <MainLayout>
       <h1>Posts</h1><br />
-      {data[0] && data.map((post) => (
+      {posts[0] && posts.map((post) => (
         <div key={post.id}>
           <h2>{post.title}</h2>
           <p>{post.content}</p>
@@ -19,7 +19,8 @@ const Posts = ({ data }) => {
 
 Posts.getInitialProps = async (ctx) => {
   globalThis.ctx = ctx
-  return { data: await query.find('posts') }
+  const posts = await query.find('posts')
+  return { posts }
 }
 
 
