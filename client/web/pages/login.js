@@ -2,9 +2,10 @@ import { useState } from 'react'
 import Router from "next/router"
 import { login } from '../utils/auth'
 import WithoutAuth from "../components/helpers/withoutAuth";
-import Navbar from '../components/navbar'
 import { AppContext } from "../context/appContext"
 import { useContext } from 'react'
+import MainLayout from '../layouts/mainLayout'
+
 
 const Page = ({ }) => {
 
@@ -39,8 +40,7 @@ const Page = ({ }) => {
   }
 
   return (
-    <>
-      <Navbar />
+    <MainLayout>
       <h1>Login Form</h1><br />
       {auth.identifier || "None"} | {auth.password || "None"}
       <div>
@@ -50,7 +50,7 @@ const Page = ({ }) => {
           <button type="submit">Login</button>
         </form>
       </div>
-    </>
+    </MainLayout>
   )
 }
 

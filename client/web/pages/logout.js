@@ -1,4 +1,4 @@
-import Navbar from '../components/navbar'
+import MainLayout from '../layouts/mainLayout'
 import { logout } from '../utils/auth'
 import Router from 'next/router'
 import { AppContext } from "../context/appContext"
@@ -12,10 +12,9 @@ const Page = () => {
   useEffect(() => { setUser({}) }, [])
 
   return (
-    <div>
-      <Navbar />
+    <MainLayout>
       <h1>Logged out!</h1>
-    </div>
+    </MainLayout>
   )
 }
 

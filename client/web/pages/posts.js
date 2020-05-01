@@ -1,11 +1,10 @@
-import Navbar from '../components/navbar'
+import MainLayout from '../layouts/mainLayout'
 import { query } from '../services/api'
 import WithAuth from '../components/helpers/withAuth'
 
 const Posts = ({ data }) => {
   return (
-    <>
-      <Navbar />
+    <MainLayout>
       <h1>Posts</h1><br />
       {data[0] && data.map((post) => (
         <div key={post.id}>
@@ -14,7 +13,7 @@ const Posts = ({ data }) => {
           <hr />
         </div>
       ))}
-    </>
+    </MainLayout>
   )
 }
 

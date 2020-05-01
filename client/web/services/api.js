@@ -104,7 +104,7 @@ export const query = {
     delete: _delete,
 }
 
-export const user = {
+export const auth = {
     login: _login,
     logout: _logout,
     current: _current,

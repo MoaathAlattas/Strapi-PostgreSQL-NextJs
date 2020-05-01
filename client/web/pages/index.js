@@ -1,14 +1,9 @@
-import fetch from 'node-fetch'
-import Navbar from '../components/navbar'
+import MainLayout from '../layouts/mainLayout'
 
-const Page = () => {
-
-  return (
-    <>
-      <Navbar />
-      <h1>Next.js App!</h1><br />
-    </>
-  )
-}
+const Page = () => (
+  <MainLayout>
+    <h1>Next.js App!</h1><br />
+  </MainLayout>
+)
 
 export default Page

@@ -1,7 +1,7 @@
 
-import { current } from '../../utils/auth'
 import Router from "next/router"
 import { useContext, useEffect } from 'react'
+import { auth } from "../../services/api"
 import { AppContext } from '../../context/appContext'
 
 const withAuth = (Page) => {
@@ -24,7 +24,8 @@ const withAuth = (Page) => {
             const { res, pathname } = ctx
             let prevProps = {}
 
-            const user = await current(ctx)
+            globalThis.ctx = ctx
+            const user = await auth.current()
 
             if (!user?.id) {
                   if (typeof window === 'undefined') {
