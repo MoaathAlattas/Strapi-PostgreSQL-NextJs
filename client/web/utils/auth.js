@@ -1,5 +1,22 @@
 import fetch from 'node-fetch'
 
+function handleErrors(res) {
+  if (!res.ok) throw Error(res.statusText);
+  return res
+}
+
+async function get(url = null, ctx = null, opt = null) {
+
+  let options = { credentials: "include", ...opt }
+
+  if (ctx.req) options.headers = { cookie: ctx.req.headers.cookie };
+
+  const data = await (await fetch(url, options).then(handleErrors)).json()
+  if (data.code && data.code === 400) return;
+
+  return data
+}
+
 export async function login({ identifier, password }) {
 
   const url = `${process.env.APP_URL}/api/login`
@@ -40,20 +57,6 @@ export async function logout(ctx = {}) {
   return data
 }
 
-export async function current(ctx = {}) {
-  let { req } = ctx
-  const url = `${process.env.APP_URL}/api/me`
-
-  let options = {
-    credentials: "include"
-  }
-
-  if (req) {
-    options.headers = { cookie: req.headers.cookie }
-  }
-
-  const data = await fetch(url, options)
-  if (data.ok) {
-    return await data.json()
-  }
+export function current(ctx = {}) {
+  return get(`${process.env.APP_URL}/api/me`, ctx)
 }

@@ -10,7 +10,7 @@ export default async (req, res) => {
         let token = cookies.get("Authorization")
         if (token) {
 
-            const url = `http://api.webapp.c/users/me`
+            const url = `${process.env.API_URL}/users/me`
             const data = await fetch(url, {
                 credentials: "include",
                 headers: {
