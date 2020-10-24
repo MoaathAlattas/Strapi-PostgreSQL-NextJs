@@ -4,12 +4,12 @@ import Cookies from 'js-cookie'
 const AppContext = createContext({})
 
 const AppProvider = (props) => {
-  let user = {}
+  let userCookie = {}
 
   if (typeof window !== "undefined") {
-    user = JSON.parse(Cookies.get('user') || "{}")
+    userCookie = JSON.parse(Cookies.get('user') || "{}")
   } else {
-    user = { id: 23, username: "moaath" };
+    userCookie = { id: 23, username: "moaath" };
   }
 
   const [user, setUser] = useState(userCookie)
